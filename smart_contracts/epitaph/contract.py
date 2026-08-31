@@ -1,12 +1,12 @@
 # pyright: reportMissingModuleSource=false
-"""EPITAPH — a dead-man's switch on Algorand TestNet.
+"""EPITAPH - a dead-man's switch on Algorand TestNet.
 
 The owner arms the switch with a timeout and checks in from time to time.
 If `timeout_rounds` pass with no check-in, any Arcron keeper call to
 `publish()` flips the switch: `published` goes 1, `revealed_round` records
 the round, and the 32-byte commitment in state points at the off-chain
 epitaph message the owner sealed beforehand. The message itself is never
-stored on-chain — only its SHA-256 commitment — so the farewell stays
+stored on-chain - only its SHA-256 commitment - so the farewell stays
 private until the owner (or whoever they gave it to) chooses to reveal it
 off-chain, and the world can verify it against the commitment.
 
@@ -14,13 +14,13 @@ The keeper hook is fail-soft by design (see the traps list in README.md):
 
   * Zero-argument hook. `publish()` takes no args; Arcron supplies none.
     A keeper decides *when* publish runs, never *what* it says.
-  * Authorization is Application(keeper).address — the sender of Arcron's
+  * Authorization is Application(keeper).address - the sender of Arcron's
     inner call. Never compare against itob(keeper_app_id); that is 8
     bytes, not an address.
   * FAIL SOFT. A hook that rejects gets backed off by keeper bots (1, 2,
     4... intervals) until the schedule quietly stops and burns escrow on
     retries. After the two authorization asserts, every no-work path here
-    RETURNS 0 — nothing asserts once the keeper is authenticated.
+    RETURNS 0 - nothing asserts once the keeper is authenticated.
   * Zero create args. A uint64 create_arg is how a sloppy deploy script
     confuses the keeper app id with a cadence and locks an interval at
     ~68 years. There is nothing to pass at create; the keeper is named
@@ -28,7 +28,7 @@ The keeper hook is fail-soft by design (see the traps list in README.md):
 
 CADENCE NOTE: the switch is only as responsive as its keeper. With an
 upkeep interval of 7200 rounds (~5.6 h), publication happens on the first
-keeper call after expiry — up to one interval late. The register interval
+keeper call after expiry - up to one interval late. The register interval
 must be well under `timeout_rounds` (floor 10000 rounds); see README.md.
 
 TestNet only. Unaudited. Not deployed (appId = 0 until a human deploys).
@@ -101,8 +101,8 @@ class Epitaph(ARC4Contract):
         """Name the Arcron keeper whose app account may call `publish`.
 
         Creator-only, one-time. Pass the keeper *application*, not a raw
-        uint64. `publish` authorizes Application(keeper).address — the
-        inner-call sender when Arcron `execute()` inner-calls this app —
+        uint64. `publish` authorizes Application(keeper).address - the
+        inner-call sender when Arcron `execute()` inner-calls this app -
         never itob(keeper.id). Puya lowers the Application param to uint64
         in the ABI signature; the compiled selector is set_keeper(uint64)void.
         """
@@ -118,7 +118,7 @@ class Epitaph(ARC4Contract):
         Owner-only. Sets the timeout, records the check-in round as now,
         and clears `published` so a re-arm after publication resurrects the
         switch for another silence window. The message is not stored
-        on-chain — set its commitment separately via `commit`.
+        on-chain - set its commitment separately via `commit`.
         """
         assert Txn.sender == self.owner.value, "Only the owner can arm"
         assert timeout_rounds >= MIN_TIMEOUT_ROUNDS, "Timeout below floor"
@@ -149,7 +149,7 @@ class Epitaph(ARC4Contract):
 
         Returns 1 the round the switch fires, 0 on every no-work path.
         FAIL SOFT: after the two authorization asserts nothing here may
-        reject — a failing hook gets exponentially backed off by keeper
+        reject - a failing hook gets exponentially backed off by keeper
         bots and burns upkeep escrow on retries.
 
         Not armed (timeout 0), not yet expired, or already published: all
@@ -167,7 +167,7 @@ class Epitaph(ARC4Contract):
         if self.published.value == 1:
             return UInt64(0)
 
-        # Not armed yet — nothing to expire.
+        # Not armed yet - nothing to expire.
         timeout = self.timeout_rounds.value
         if timeout == 0:
             return UInt64(0)
@@ -176,7 +176,7 @@ class Epitaph(ARC4Contract):
         if Global.round < self.last_checkin_round.value + timeout:
             return UInt64(0)
 
-        # EXPIRED — speak once.
+        # EXPIRED - speak once.
         self.published.value = UInt64(1)
         self.revealed_round.value = Global.round
         return UInt64(1)

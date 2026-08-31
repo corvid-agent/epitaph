@@ -309,7 +309,7 @@ publish_after_inlined_contract.Epitaph.publish@8:
 
 publish_after_if_else@3:
     // contract.py:170-171
-    // # Not armed yet — nothing to expire.
+    // # Not armed yet - nothing to expire.
     // timeout = self.timeout_rounds.value
     intc_0 // 0
     bytec 4 // "timeout_rounds"
@@ -351,7 +351,7 @@ publish_after_if_else@5:
 
 publish_after_if_else@7:
     // contract.py:179-180
-    // # EXPIRED — speak once.
+    // # EXPIRED - speak once.
     // self.published.value = UInt64(1)
     bytec_1 // "published"
     intc_1 // 1
