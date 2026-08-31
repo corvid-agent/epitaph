@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EPITAPH — dead-man's switch board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600&family=Bebas+Neue&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="crt" id="crt">
+    <header>
+      <h1>Epitaph</h1>
+      <div class="meta" id="keeper-meta">TestNet · Arcron keeper</div>
+    </header>
+
+    <section class="status-row">
+      <div class="label">Status</div>
+      <div class="flaps big" id="status" aria-label="board status"></div>
+      <div class="meta" id="subhead">seeking</div>
+    </section>
+
+    <section class="board" id="board">
+      <div class="cell">
+        <div class="label">Expiry round</div>
+        <div class="flaps" id="stat-expiry" aria-label="round the switch expires"></div>
+      </div>
+      <div class="cell">
+        <div class="label">Rounds left</div>
+        <div class="flaps" id="stat-left" aria-label="rounds until expiry"></div>
+      </div>
+      <div class="cell">
+        <div class="label">Last check-in</div>
+        <div class="flaps" id="stat-checkin" aria-label="last check-in round"></div>
+      </div>
+      <div class="cell">
+        <div class="label">Timeout</div>
+        <div class="flaps" id="stat-timeout" aria-label="timeout in rounds"></div>
+      </div>
+      <div class="cell">
+        <div class="label">Commitment</div>
+        <div class="flaps" id="stat-commit" aria-label="sha-256 commitment hash"></div>
+      </div>
+      <div class="cell">
+        <div class="label">Revealed round</div>
+        <div class="flaps" id="stat-revealed" aria-label="round the switch fired"></div>
+      </div>
+      <div class="cell">
+        <div class="label">Chain round</div>
+        <div class="flaps" id="stat-round" aria-label="chain last round"></div>
+      </div>
+      <div class="cell">
+        <div class="label">Keeper</div>
+        <div class="flaps" id="stat-keeper" aria-label="keeper app id"></div>
+      </div>
+    </section>
+
+    <p class="notes" id="notes">
+      The owner arms the switch and checks in; if the checks stop for
+      <code>timeout_rounds</code>, the next keeper call publishes. Only a
+      SHA-256 commitment lives on-chain — the farewell itself never does.
+      Once deployed, state is read from the app's global state on the TestNet
+      indexer; the chain is the source of truth. Contract:
+      <a href="https://github.com/corvid-agent/epitaph/blob/main/smart_contracts/epitaph/contract.py">smart_contracts/epitaph/contract.py</a>.
+    </p>
+
+    <footer class="foot">Unaudited. TestNet only. Not deployed. Read-only, no wallet.</footer>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>
