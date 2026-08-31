@@ -37,7 +37,7 @@
                 ]
             },
             "readonly": false,
-            "desc": "Name the Arcron keeper whose app account may call `publish`.\nCreator-only, one-time. Pass the keeper *application*, not a raw uint64. `publish` authorizes Application(keeper).address — the inner-call sender when Arcron `execute()` inner-calls this app — never itob(keeper.id). Puya lowers the Application param to uint64 in the ABI signature; the compiled selector is set_keeper(uint64)void.",
+            "desc": "Name the Arcron keeper whose app account may call `publish`.\nCreator-only, one-time. Pass the keeper *application*, not a raw uint64. `publish` authorizes Application(keeper).address  the inner-call sender when Arcron `execute()` inner-calls this app  never itob(keeper.id). Puya lowers the Application param to uint64 in the ABI signature; the compiled selector is set_keeper(uint64)void.",
             "events": [],
             "recommendations": {}
         },
@@ -59,7 +59,7 @@
                 ]
             },
             "readonly": false,
-            "desc": "Arm the switch (or re-arm it) with a fresh timeout.\nOwner-only. Sets the timeout, records the check-in round as now, and clears `published` so a re-arm after publication resurrects the switch for another silence window. The message is not stored on-chain — set its commitment separately via `commit`.",
+            "desc": "Arm the switch (or re-arm it) with a fresh timeout.\nOwner-only. Sets the timeout, records the check-in round as now, and clears `published` so a re-arm after publication resurrects the switch for another silence window. The message is not stored on-chain  set its commitment separately via `commit`.",
             "events": [],
             "recommendations": {}
         },
@@ -115,7 +115,7 @@
                 ]
             },
             "readonly": false,
-            "desc": "Arcron hook. Zero arguments; the selector is the only app arg.\nReturns 1 the round the switch fires, 0 on every no-work path. FAIL SOFT: after the two authorization asserts nothing here may reject — a failing hook gets exponentially backed off by keeper bots and burns upkeep escrow on retries.\nNot armed (timeout 0), not yet expired, or already published: all return 0. On expiry: set published = 1, record revealed_round, return 1. One execution, permanent, readable off any indexer.",
+            "desc": "Arcron hook. Zero arguments; the selector is the only app arg.\nReturns 1 the round the switch fires, 0 on every no-work path. FAIL SOFT: after the two authorization asserts nothing here may reject  a failing hook gets exponentially backed off by keeper bots and burns upkeep escrow on retries.\nNot armed (timeout 0), not yet expired, or already published: all return 0. On expiry: set published = 1, record revealed_round, return 1. One execution, permanent, readable off any indexer.",
             "events": [],
             "recommendations": {}
         },
@@ -330,7 +330,7 @@
         "clear": "I3ByYWdtYSB2ZXJzaW9uIDExCiNwcmFnbWEgdHlwZXRyYWNrIGZhbHNlCgovLyBhbGdvcHkuYXJjNC5BUkM0Q29udHJhY3QuY2xlYXJfc3RhdGVfcHJvZ3JhbSgpIC0+IHVpbnQ2NDoKbWFpbjoKICAgIHB1c2hpbnQgMQogICAgcmV0dXJuCg=="
     },
     "byteCode": {
-        "approval": "CyADAAEIJggSbGFzdF9jaGVja2luX3JvdW5kCXB1Ymxpc2hlZAprZWVwZXJfYXBwBW93bmVyDnRpbWVvdXRfcm91bmRzDnJldmVhbGVkX3JvdW5kCmNvbW1pdG1lbnQEFR98dTEYQAAaKiJnKzIDZygiZycEImcpImcnBSJnJwaAAGcxGRREMRhBADKCBgTEwdj3BLa9j+cEgEklcwSP4l4FBL4LKSIEd6evFTYaAI4GACsARwBrAIIAkADeAIAETFxhujYaAI4BAAEAKiJnKzEAZygiZycEImcnBSJnJwaAAGcjQzYaAUkVJBJEFzEAMgkSRCIqZUQURElEKkxnI0M2GgFJFSQSRBcxACIrZUQSREmBkE4PRCcETGcoMgZnKSJnI0M2GgFJFYEgEkQxACIrZUQSRCcGTGcjQzEAIitlRBJEKDIGZyNDIiplRElEMQBMcghEEkQiKWVEIxJBAAkiFicHTFCwI0MiJwRlTElPAkRAAAVIIkL/5zIGIihlRE8CCAxBAAQiQv/WKSNnJwUyBmcjQv/KIicEZUxJTwJEQAAKSCIWJwdMULAjQyIpZUQjEkEABUgiQv/qIihlRAhJMgYOQQAFSCJC/9kyBglC/9M=",
+        "approval": "CyADAAEIJggSbGFzdF9jaGVja2luX3JvdW5kCXB1Ymxpc2hlZAprZWVwZXJfYXBwBW93bmVyDnRpbWVvdXRfcm91bmRzDnJldmVhbGVkX3JvdW5kCmNvbW1pdG1lbnQEFR98dTEYQAAaKiJnKzIDZygiZycEImcpImcnBSJnJwaAAGcxGRREMRhBADKCBgTEwdj3BLa9j+cEgEklcwSP4l4FBL4LKSIEd6evFTYaAI4GACsARwBrAIIAkADeAIAETFxhujYaAI4BAAEAKiJnKzEAZygiZycEImcpImcnBSJnJwaAAGcjQzYaAUkVJBJEFzEAMgkSRCIqZUQURElEKkxnI0M2GgFJFSQSRBcxACIrZUQSREmBkE4PRCcETGcoMgZnKSJnI0M2GgFJFYEgEkQxACIrZUQSRCcGTGcjQzEAIitlRBJEKDIGZyNDIiplRElEMQBMcghEEkQiKWVEIxJBAAkiFicHTFCwI0MiJwRlTElPAkRAAAVIIkL/5zIGIihlRE8CCAxBAAQiQv/WKSNnJwUyBmcjQv/KIicEZUxJTwJEQAAKSCIWJwdMULAjQyIpZUQjEkEABUgiQv/qIihlRAhJMgYOQQAFSCJC/9kyBglC/9M=",
         "clear": "C4EBQw=="
     },
     "compilerInfo": {
