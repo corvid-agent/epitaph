@@ -1,1 +1,8 @@
-{"appId": 0, "network": "testnet", "keeperAppId": 769891898, "notes": "not deployed"}
+{
+  "appId": 770748282,
+  "network": "testnet",
+  "keeperAppId": 769891898,
+  "upkeepId": 114,
+  "interval": 7200,
+  "notes": "deployed — dead-man's switch, armed 100000r timeout, publish() via arcron keeper, upkeep #114"
+}
